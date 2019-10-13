@@ -5,7 +5,8 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 
-import static jdk.internal.org.objectweb.asm.Opcodes.ACC_PUBLIC;
+import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
+
 
 /**
  * @author zhangji
@@ -37,6 +38,9 @@ public class AddFieldAndMethod extends ClassVisitor {
 			// descriptor can also be the int(I), double(D) and so on.
 			String descriptor = "Ljava.lang.String;";
 			FieldVisitor fv = cv.visitField(ACC_PUBLIC, fieldName, descriptor, null, null);
+			if (fv != null) {
+				fv.visitEnd();
+			}
 		}
 		super.visitEnd();
 	}
