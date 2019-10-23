@@ -1,4 +1,4 @@
-package com.hhu.coreapi.classvisitor;
+package com.hhu.attach;
 
 public class TargetClass {
 

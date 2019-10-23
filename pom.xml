@@ -67,8 +67,8 @@
           <configuration>
             <archive>
               <manifestEntries>
-                <Agent-Class>com.hhu.coreapi.classvisitor.ClassVisitorTool</Agent-Class>
-                <Premain-Class>com.hhu.coreapi.classvisitor.ClassVisitorTool</Premain-Class>
+                <Agent-Class>com.hhu.coreapi.methodvisitor.AdviceAdapterTool</Agent-Class>
+                <Premain-Class>com.hhu.coreapi.methodvisitor.AdviceAdapterTool</Premain-Class>
                 <Can-Redefine-Classes>true</Can-Redefine-Classes>
                 <Can-Retransform-Classes>true</Can-Retransform-Classes>
               </manifestEntries>
