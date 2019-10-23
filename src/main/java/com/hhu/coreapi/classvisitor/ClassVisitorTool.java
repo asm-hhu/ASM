@@ -14,15 +14,12 @@ import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 import java.security.ProtectionDomain;
 
-import static org.objectweb.asm.Opcodes.ASM7;
-
-
 
 public class ClassVisitorTool {
 
 	private static PrintWriter printWriter;
 
-	public ClassVisitorTool() {
+	static  {
 		File file = new File("./TraceClassVisitor.txt");
 		if (!file.exists()) {
 			try {
@@ -39,7 +36,7 @@ public class ClassVisitorTool {
 		instrumentation.addTransformer(new MyClassFileTransformer(), true);
 		Class[] classes = instrumentation.getAllLoadedClasses();
 		for (Class clazz : classes) {
-			if ("com.hhu.coreapi.classvisitor.TargetClass".equals(clazz.getName())) {
+			if ("com.hhu.attach.TargetClass".equals(clazz.getName())) {
 				System.out.println("reloading " + clazz.getName());
 				instrumentation.retransformClasses(clazz);
 				break;
@@ -51,7 +48,7 @@ public class ClassVisitorTool {
 		@Override
 		public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
 			System.out.println(className);
-			if (!"com/hhu/coreapi/classvisitor/TargetClass".equals(className)) {
+			if (!"com/hhu/coreapi/TargetClass".equals(className)) {
 				return classfileBuffer;
 			}
 
@@ -65,7 +62,7 @@ public class ClassVisitorTool {
 			// through CheckClassAdapter, we can check classes at this point in the chain,
 			// if generate the invalid class that will be rejected by the JVM
 			// it will detect the errors as soon as possible, and throw the Exception(IllegalStateException or IllegalArgumentException )
-			CheckClassAdapter cca = new CheckClassAdapter(tcv);
+			// CheckClassAdapter cca = new CheckClassAdapter(tcv);
 
 			cr.accept(tcv, ClassReader.SKIP_FRAMES | ClassReader.SKIP_DEBUG);
 			return cw.toByteArray();
